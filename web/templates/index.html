@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ScamShield</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <div class="nav">
+        <div class="brand">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="ScamShield logo" class="logo-img"/>
+            <div>
+                <h1>ScamShield</h1>
+                <div class="muted">Ham (0) vs Scam (1) • Paste any message to scan</div>
+            </div>
+        </div>
+
+        <div class="actions">
+            <a class="btn" href="{{ url_for('history') }}">History</a>
+        </div>
+    </div>
+
+    <div class="card hero">
+        <h2 class="hero-title">Detect scams in seconds.</h2>
+        <p class="hero-sub">Powered by Logistic Regression + Neural Network. Choose a model, set a threshold, and scan
+            the message.</p>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="card">
+        <span class="badge warn">Notice</span>
+        <div style="margin-top:10px;">
+            {% for m in messages %}
+            <div class="muted">{{ m }}</div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="card">
+        <form method="POST" action="{{ url_for('scan') }}">
+            <label>Message text</label>
+            <textarea name="message" placeholder="Paste SMS / email content here..."></textarea>
+
+            <div class="row">
+                <select class="select" name="model">
+                    <option value="logreg">Logistic Regression</option>
+                    <option value="nn">Neural Network</option>
+                </select>
+
+                <input class="num" name="threshold" type="number" step="0.01" value="0.50" style="width:120px;">
+                <button class="btn btn-primary" type="submit">Scan message</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

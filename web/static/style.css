@@ -1,0 +1,307 @@
+/* ============ Base (Maroon Security Theme) ============ */
+:root{
+  /* Core background */
+  --bg: #0b0709;
+
+  /* Panels */
+  --panel: rgba(28, 10, 14, 0.88);
+  --panel-2: rgba(36, 12, 18, 0.78);
+  --border: rgba(180, 60, 70, 0.22);
+
+  /* Text */
+  --text: #f6f1f2;
+  --muted: rgba(246, 241, 242, 0.65);
+
+  /* Status */
+  --good: #2bd576;          /* Ham */
+  --bad: #c1121f;           /* Scam (deep red) */
+  --warn: #e85d04;          /* Warning */
+
+  /* Accent palette */
+  --maroon: #7a0f1b;
+  --crimson: #a4161a;
+  --ember: #e85d04;
+
+  --glow: rgba(164, 22, 26, 0.45);
+}
+
+*{ box-sizing: border-box; }
+
+/* ============ Body ============ */
+body{
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(900px 520px at 20% -10%, rgba(122,15,27,0.28), transparent 60%),
+    radial-gradient(700px 460px at 85% 12%, rgba(232,93,4,0.18), transparent 60%),
+    radial-gradient(600px 420px at 50% 85%, rgba(164,22,26,0.18), transparent 60%),
+    var(--bg);
+  min-height: 100vh;
+}
+
+/* subtle grid overlay */
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+      linear-gradient(to right, rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.22;
+}
+
+/* ============ Layout ============ */
+.container{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 28px 18px 60px;
+}
+
+.nav{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+}
+
+/* Logo image */
+.logo-img{
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.25);
+  padding: 4px;
+
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.12),
+    0 8px 24px rgba(164,22,26,0.35);
+}
+
+
+.muted{ color: var(--muted); font-size: 14px; }
+
+.actions{
+  display:flex;
+  gap: 10px;
+  align-items:center;
+}
+
+/* ============ Panels / Cards ============ */
+.card{
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.55);
+  backdrop-filter: blur(10px);
+}
+
+.card + .card{ margin-top: 14px; }
+
+/* ============ Hero ============ */
+.hero{
+  padding: 24px 20px;
+  position: relative;
+  overflow:hidden;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:-90px -90px auto auto;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(164,22,26,0.55), transparent 65%);
+  filter: blur(14px);
+}
+
+.hero-title{
+  font-size: 44px;
+  line-height: 1.1;
+  margin: 0 0 10px;
+  letter-spacing: 0.4px;
+}
+
+.hero-sub{
+  margin: 0;
+  color: var(--muted);
+  max-width: 70ch;
+}
+
+/* ============ Form ============ */
+label{
+  display:block;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+textarea{
+  width: 100%;
+  min-height: 150px;
+  resize: vertical;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.35);
+  color: var(--text);
+  outline: none;
+}
+
+textarea:focus{
+  border-color: rgba(232,93,4,0.6);
+  box-shadow: 0 0 0 4px rgba(232,93,4,0.18);
+}
+
+.row{
+  display:flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.select, .num{
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.28);
+  color: var(--text);
+  outline: none;
+}
+
+.select:focus, .num:focus{
+  border-color: rgba(164,22,26,0.6);
+  box-shadow: 0 0 0 4px rgba(164,22,26,0.18);
+}
+
+/* ============ Buttons ============ */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap: 8px;
+  padding: 11px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+  cursor: pointer;
+  text-decoration: none;
+  user-select: none;
+}
+
+.btn:hover{
+  background: rgba(255,255,255,0.10);
+}
+
+/* Primary CTA */
+.btn-primary{
+  border: 1px solid rgba(164,22,26,0.65);
+  background: linear-gradient(
+    90deg,
+    var(--maroon),
+    var(--ember)
+  );
+  box-shadow:
+    0 10px 30px rgba(164,22,26,0.45),
+    0 0 0 4px rgba(164,22,26,0.18);
+  font-weight: 900;
+  letter-spacing: 0.4px;
+}
+
+.btn-primary:hover{
+  filter: brightness(1.08);
+  box-shadow:
+    0 14px 40px rgba(164,22,26,0.55),
+    0 0 0 4px rgba(232,93,4,0.20);
+}
+
+/* ============ Badges ============ */
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+  font-weight: 900;
+  letter-spacing: 0.3px;
+}
+
+.badge.good{
+  border-color: rgba(43,213,118,0.55);
+  color: var(--good);
+  background: rgba(43,213,118,0.10);
+}
+
+.badge.bad{
+  border-color: rgba(193,18,31,0.65);
+  color: var(--bad);
+  background: rgba(193,18,31,0.16);
+}
+
+.badge.warn{
+  border-color: rgba(232,93,4,0.65);
+  color: var(--warn);
+  background: rgba(232,93,4,0.16);
+}
+
+/* ============ Key/Value blocks ============ */
+.kv{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.kv .item{
+  padding: 12px;
+  border-radius: 14px;
+  background: var(--panel-2);
+  border: 1px solid rgba(255,255,255,0.10);
+}
+
+/* ============ Code blocks ============ */
+pre{
+  margin: 10px 0 0;
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(0,0,0,0.40);
+  border: 1px solid rgba(255,255,255,0.10);
+  overflow-x: auto;
+  font-size: 13px;
+  color: rgba(246,241,242,0.92);
+}
+
+/* ============ History ============ */
+.history-item{
+  padding: 14px;
+}
+
+.history-meta{
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.history-text{
+  margin-top: 10px;
+  color: rgba(246,241,242,0.85);
+}
+
+/* ============ Responsive ============ */
+@media (max-width: 720px){
+  .hero-title{ font-size: 34px; }
+  .kv{ grid-template-columns: 1fr; }
+}

@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ScamShield – History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <div class="nav">
+        <div class="brand">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="ScamShield logo" class="logo-img"/>
+            <div>
+                <h1>ScamShield</h1>
+                <div class="muted">Ham (0) vs Scam (1) • Paste any message to scan</div>
+            </div>
+        </div>
+
+        <div class="actions">
+            <a class="btn" href="{{ url_for('index') }}">New scan</a>
+        </div>
+    </div>
+
+    {% for r in rows %}
+    <div class="card history-item">
+        <div class="muted">
+            <b>#{{ r.id }}</b> • {{ r.created_at }} • model={{ r.model_used }} • threshold={{ r.threshold }}
+        </div>
+
+        {% if r.verdict == "Scam" %}
+        <div style="margin-top:10px;">
+            <span class="badge bad">Scam • {{ r.risk_score }}/100</span>
+            <span class="muted">p={{ "%.4f"|format(r.probability) }}</span>
+        </div>
+        {% else %}
+        <div style="margin-top:10px;">
+            <span class="badge good">Ham • {{ r.risk_score }}/100</span>
+            <span class="muted">p={{ "%.4f"|format(r.probability) }}</span>
+        </div>
+        {% endif %}
+
+        <div class="history-text">
+            {{ r.message_text[:260] }}{% if r.message_text|length > 260 %}...{% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</body>
+</html>

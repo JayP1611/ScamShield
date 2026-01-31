@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ScamShield – Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <div class="nav">
+        <div class="brand">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="ScamShield logo" class="logo-img"/>
+            <div>
+                <h1>ScamShield</h1>
+                <div class="muted">Ham (0) vs Scam (1) • Paste any message to scan</div>
+            </div>
+        </div>
+
+        <div class="actions">
+            <a class="btn" href="{{ url_for('index') }}">New scan</a>
+            <a class="btn" href="{{ url_for('history') }}">History</a>
+        </div>
+    </div>
+
+    <div class="card hero">
+        <h2 class="hero-title">Result: {{ result.verdict }}</h2>
+        <p class="hero-sub">Probability score and explanations are shown below.</p>
+    </div>
+
+    <div class="card">
+        {% if result.verdict == "Scam" %}
+        <span class="badge bad">Scam</span>
+        {% else %}
+        <span class="badge good">Ham</span>
+        {% endif %}
+
+        <div class="kv">
+            <div class="item">
+                <div class="muted">Probability</div>
+                <div style="font-size: 26px; font-weight: 800;">{{ "%.4f"|format(result.probability) }}</div>
+            </div>
+            <div class="item">
+                <div class="muted">Risk score</div>
+                <div style="font-size: 26px; font-weight: 800;">{{ result.risk_score }}/100</div>
+            </div>
+        </div>
+
+        <div style="margin-top:14px;">
+            <div class="muted">Message</div>
+            <pre>{{ message }}</pre>
+        </div>
+    </div>
+
+    <div class="card">
+        <div style="font-weight:800;">Handcrafted features</div>
+        <pre>{{ result.handcrafted_features | tojson(indent=2) }}</pre>
+    </div>
+
+    <div class="card">
+        <div style="font-weight:800;">Handcrafted features</div>
+        <pre>{{ result.handcrafted_features | tojson(indent=2) }}</pre>
+    </div>
+
+    {% if result.cluster %}
+    <div class="card">
+        <div style="font-weight:800;">Cluster insight</div>
+
+        {% if result.cluster.error %}
+        <div class="muted">Clustering unavailable</div>
+        <pre>{{ result.cluster.error }}</pre>
+        {% else %}
+        <div class="kv">
+            <div class="item">
+                <div class="muted">Cluster ID</div>
+                <div style="font-size: 22px; font-weight: 800;">{{ result.cluster.id }}</div>
+            </div>
+            <div class="item">
+                <div class="muted">Top terms</div>
+                <div style="font-weight: 700;">
+                    {{ result.cluster.top_terms | join(", ") }}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {% if result.explanations %}
+    <div class="card">
+        <div style="font-weight:800;">LogReg explanation (top terms)</div>
+        <pre>{{ result.explanations | tojson(indent=2) }}</pre>
+    </div>
+    {% endif %}
+
+
+    {% if result.explanations %}
+    <div class="card">
+        <div style="font-weight:800;">LogReg explanation (top terms)</div>
+        <pre>{{ result.explanations | tojson(indent=2) }}</pre>
+    </div>
+    {% endif %}
+</div>
+</body>
+</html>
